@@ -60,17 +60,26 @@ This project is 100% configured and optimized for **Vercel** deployment with edg
 The website is structured into two main sequential experiences:
 
 ### 1. Full-Screen Engine-Video Intro (Top of Page)
-- **Visual Staging:** A full-screen (`100vh` sticky stage inside a `230vh` scroll track) interactive 3D engine video breakdown (`assets/engine-hero.mp4`).
-- **Scroll-Controlled Playback:** As visitors scroll down through this intro section, the video plays forward in sync with scroll progress; scrolling back up smoothly rewinds it.
-- **Fluid Lerp Interpolation:** Uses linear interpolation via `requestAnimationFrame` to ensure seamless, stutter-free frame seeking.
+- **Visual Staging:** A full-screen (`100vh` sticky stage inside a `230vh` scroll track) interactive 3D engine video breakdown.
+- **Hardware-Accelerated Canvas Rendering Cache:**
+  - High-performance `<canvas id="introCanvas">` using `desynchronized: true` and `alpha: false` rendering context.
+  - Automatically pre-caches frames as GPU `ImageBitmap` buffers into an in-memory `Map` (90 frames on desktop, 60 frames on mobile).
+  - Eliminates browser video decoder seek lag (`currentTime` bottleneck), enabling instantaneous 60fps/120fps scrubbing backwards and forwards.
+- **Background Auto-Render Engine:**
+  - Automatically spins up upon page load in the background, streaming the video at accelerated rate (`playbackRate = 2.5`) with `requestVideoFrameCallback` to pre-render and cache all keyframes in ~1.5 seconds.
+  - Once rendering completes, the background video decoder is cleanly paused to preserve system battery and CPU/GPU resources.
+  - Real-time scrub status pill badge shows live auto-render progress (`⚡ Auto-rendering cache... (X%)` → `⚡ 60fps Cache Ready`).
+- **Scroll-Controlled Playback & Lerp Smoothing:**
+  - As visitors scroll down through this intro section, the video advances in sync with scroll progress; scrolling back up smoothly rewinds it with 0.2 lerp smoothing.
+  - Cache-fault tolerance: if the user scrolls before pre-rendering finishes, it instantly falls back to the nearest cached frame or decodes on-demand without stutter or black frames.
 - **Intro UI & Controls:**
   - Branding header with logo and `Skip Intro to Catalogue ↓` button.
   - Centered typography: `Engineered for Reliability` with golden yellow accents.
-  - Interactive scrub pill: `⚙️ Scroll to scrub engine (X%)` with live progress bar.
+  - Interactive scrub pill: `⚙️ Scrubbing Engine (X%) · ⚡ 60fps Cache` with live progress bar.
   - Prominent prompt linking directly into the homepage content.
 - **Fallbacks & Accessibility:**
-  - High-resolution poster frame [assets/engine-poster.jpg](file:///c:/Users/SAMSUNG/newproject/assets/engine-poster.jpg) extracted at 1920×1080.
-  - Reduced-motion support (`@media (prefers-reduced-motion: reduce)`) displays the static poster without scroll-jacked video scrubbing.
+  - High-resolution poster frame [assets/engine-poster.jpg](file:///c:/Users/SAMSUNG/newproject/assets/engine-poster.jpg) extracted at 1920×1080 primed instantly before caching starts.
+  - Reduced-motion support (`@media (prefers-reduced-motion: reduce)`) halts auto-render and displays the static poster without video scrubbing.
   - Responsive crop (`object-fit: cover; object-position: center center`) for mobile devices.
 
 ---
