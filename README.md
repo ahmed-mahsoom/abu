@@ -4,6 +4,57 @@ A high-performance, responsive website for **Abu Talal Trading EST**, an auto an
 
 ---
 
+## ⚡ Vercel Deployment Guide
+
+This project is 100% configured and optimized for **Vercel** deployment with edge caching, byte-range video streaming support, and security headers.
+
+### Option 1: Deploy via GitHub (Recommended)
+
+1. Create a new repository on your GitHub / GitLab / Bitbucket account (e.g. `abu-talal-trading`).
+2. In your terminal, link your remote repository and push:
+   ```powershell
+   git remote add origin https://github.com/YOUR_USERNAME/abu-talal-trading.git
+   git push -u origin main
+   ```
+3. Go to **[vercel.com/new](https://vercel.com/new)**.
+4. Import the repository and click **Deploy**.
+5. Vercel will automatically read `vercel.json` and deploy the site to a live URL (e.g. `https://abu-talal-trading.vercel.app`) with free global SSL, CDN caching, and automated preview deployments on git push.
+
+---
+
+### Option 2: Deploy via Vercel CLI
+
+1. If you have Node.js / npm installed:
+   ```powershell
+   npm i -g vercel
+   ```
+2. In this folder (`c:\Users\SAMSUNG\newproject`), run:
+   ```powershell
+   vercel
+   ```
+3. For immediate production deployment:
+   ```powershell
+   vercel --prod
+   ```
+
+---
+
+### Option 3: Deploy via Vercel Dashboard (Drag & Drop)
+
+1. Go to **[vercel.com](https://vercel.com)**.
+2. Under "Add New...", select **Project** and drag and drop this project directory.
+3. Click **Deploy**.
+
+---
+
+## 🛠️ Vercel Optimizations (`vercel.json`)
+
+- **Edge CDN Media Caching:** `assets/*` (including the 5.4 MB 1080p `engine-hero.mp4` video, poster still, and category sprite sheets) are served with `Cache-Control: public, max-age=31536000, immutable` and `Accept-Ranges: bytes` for instantaneous seeking and scrubbing without bandwidth lag.
+- **Clean URLs:** Auto-configured with `"cleanUrls": true` and `"trailingSlash": false`.
+- **Security Headers:** Includes `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, and `Referrer-Policy: strict-origin-when-cross-origin`.
+
+---
+
 ## 🏗️ Page Architecture & Sequence
 
 The website is structured into two main sequential experiences:
