@@ -1,0 +1,39 @@
+# Vercel deployment ignores
+.vercel
+
+# Node / package manager ignores
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Python cache & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# IDE and Editor configurations
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Scratch scripts
+scratch/
+inspect_*.py
+extract_*.py
+verify_*.py
+check_*.py
+test_*.py

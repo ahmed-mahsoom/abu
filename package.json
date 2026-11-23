@@ -1,0 +1,21 @@
+{
+  "name": "abu-talal-trading-est",
+  "version": "1.0.0",
+  "description": "Abu Talal Trading EST — Official auto and forklift spare parts website with 3D engine scroll-controlled animation.",
+  "private": true,
+  "homepage": "https://abutalaltradingest.vercel.app",
+  "scripts": {
+    "start": "python serve.py"
+  },
+  "keywords": [
+    "auto-parts",
+    "forklift-parts",
+    "spare-parts",
+    "abu-talal-trading",
+    "al-khobar",
+    "saudi-arabia",
+    "vercel"
+  ],
+  "author": "Abu Talal Trading EST",
+  "license": "UNLICENSED"
+}
